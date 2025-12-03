@@ -12,19 +12,19 @@ jobs:
         steps:
             # Checkout the code
             - name: Checksout Latest
-              uses: actions/Checkout@v6
+              uses: actions/checkout@v6
 
             # Set up Python
             # Using name is not neccessary
             - uses: actions/setup-python@v6
               with:
                 python-version: '3.13'
-            - run: my_script.py
+            - run: python my_scripts.py
 
             # Install dependencies
             - name: install dependencies
               run: |
-                pip -m pip install --upgrade pip
+                python -m pip install --upgrade pip
                 pip install -r requirements.txt
 
             # Run tests
