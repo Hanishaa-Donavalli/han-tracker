@@ -1,0 +1,34 @@
+name: Python CI
+
+on:
+    push:
+        branches: [ "main" ]
+    pull_request:
+        branches: [ "main" ]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            # Checkout the code
+            - name: Checksout Latest
+              uses: actions/Checkout@v6
+
+            # Set up Python
+            # Using name is not neccessary
+            - uses: actions/setup-python@v6
+              with:
+                python-version: '3.13'
+            - run: my_script.py
+
+            # Install dependencies
+            - name: install dependencies
+              run: |
+                pip -m pip install --upgrade pip
+                pip install -r requirements.txt
+
+            # Run tests
+            # I can directly write run: pytest here, but for readability and consistency
+            - name: run pytest
+              run: |
+                pytest
