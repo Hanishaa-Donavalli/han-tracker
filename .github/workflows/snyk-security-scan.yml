@@ -1,0 +1,31 @@
+name: Snyk security scan
+
+on:
+    push:
+        branches: ["main"]
+    pull_request:
+
+jobs:
+    snyk:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: checkout
+          uses: actions/checkout@v6
+
+        - name: Set up node.js
+          uses: actions/setup-node@v6
+          with:
+            node-version: 18
+        
+        - name: Install Snyk CLI
+          run: npm install -g snyk
+
+        - name: Authenticate snyk
+          run: snyk auth ${{secrets.SNYK_TOKEN}}
+
+        - name: Run snyk security scan
+          run: snyk test --all-projects
+
+        - name: monitor project in snyk
+          run: snyk monitor --all-projects
