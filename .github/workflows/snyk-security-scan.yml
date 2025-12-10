@@ -13,6 +13,12 @@ jobs:
         - name: checkout
           uses: actions/checkout@v6
 
+        - uses: actions/setup-python@v6
+          with:
+            python-version: '3.13'
+
+        - run: pip install -r requirements.txt
+
         - name: Set up node.js
           uses: actions/setup-node@v6
           with:
